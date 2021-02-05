@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Meta App</title>
+  </head>
+
+  <body class="bg-light">
+    <div class="bg-white container my-4">
+      <div id="app">
+        <div class="row p-4 border" v-for="p in psychotherapists">
+          <div class="col-6 col-md-4">
+            <img v-bind:src="p.photo_url" class="img-thumbnail">
+          </div>
+          <div class="col-md-8">
+            <div class="row border text-center">
+              <div class="d-md-block fs-3">
+                <% p.name %>
+              </div>
+            </div>
+            <div class="row pt-4">
+              <div class="d-md-block fs-4">
+                Методы: <br/>
+                <button class="btn btn-primary m-1" type="button" v-for="pm in p.methods">
+                  <% pm %>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+      var app = new Vue({
+          el: '#app',
+          data: {
+            psychotherapists: [
+            {% for p in psychotherapists %}
+                {
+                  name: '{{ p.name }}',
+                  photo_url: '{{ p.photo_url }}',
+                  methods: [
+                    {% for m in p.methods %}
+                      '{{ m }}',
+                    {% endfor %}
+                  ]
+                },
+            {% endfor %}
+            ],
+          },
+          delimiters: ["<%","%>"],
+      });
+    </script>
+  </body>
+</html>
