@@ -1,4 +1,4 @@
-# Demo
+# Specialist lists landing page using Django, VueJS, Bootstrap, Airtable API
 
 ![demo](screenshot.png)
 
